@@ -41,6 +41,11 @@ app.use(TasksRoute);
 
 app.use(AuthRoute);
 
-app.listen(port, () => {
-	console.log(`Server is running on port ${port}`);
-});
+// Only listen when started via `node app.js`, not when required by tests.
+if (require.main === module) {
+	app.listen(port, () => {
+		console.log(`Server is running on port ${port}`);
+	});
+}
+
+module.exports = app;
