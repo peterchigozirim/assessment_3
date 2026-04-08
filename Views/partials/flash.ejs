@@ -1,0 +1,15 @@
+<% if (messages && messages.error && messages.error.length) { %>
+  <div class="mx-auto mt-4 max-w-5xl px-4">
+    <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+      <%= messages.error[0] %>
+    </div>
+  </div>
+<% } %>
+
+<% if (messages && messages.success && messages.success.length) { %>
+  <div class="mx-auto mt-4 max-w-5xl px-4">
+    <div class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+      <%= messages.success[0] %>
+    </div>
+  </div>
+<% } %>

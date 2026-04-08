@@ -1,0 +1,31 @@
+{
+	"name": "shipping_backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon app.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"_moduleAliases": {
+		"@": "."
+	},
+	"dependencies": {
+		"bcrypt": "^6.0.0",
+		"body-parser": "^2.2.2",
+		"connect-flash": "^0.1.1",
+		"cookie-parser": "^1.4.7",
+		"dotenv": "^17.4.1",
+		"ejs": "^5.0.1",
+		"express": "^5.2.1",
+		"express-session": "^1.19.0",
+		"jsonwebtoken": "^9.0.3",
+		"module-alias": "^2.3.4",
+		"mongoose": "^9.4.1",
+		"nodemon": "^3.1.14"
+	}
+}

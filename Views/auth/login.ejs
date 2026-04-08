@@ -1,0 +1,28 @@
+<%- include('../partials/head', { title: 'Login' }) %>
+<%- include('../partials/nav', { user }) %>
+<%- include('../partials/flash', { messages }) %>
+
+<main class="mx-auto max-w-5xl px-4 py-10">
+  <div class="mx-auto max-w-md rounded-2xl border bg-white p-6 shadow-sm">
+    <h1 class="text-xl font-semibold">Login</h1>
+    <p class="mt-1 text-sm text-slate-600">Use your email + password.</p>
+
+    <form class="mt-6 space-y-4" action="/login" method="post">
+      <div>
+        <label class="text-sm font-medium">Email</label>
+        <input name="email" type="email" required class="mt-1 w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900" placeholder="you@example.com" />
+      </div>
+      <div>
+        <label class="text-sm font-medium">Password</label>
+        <input name="password" type="password" required minlength="8" class="mt-1 w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900" placeholder="********" />
+      </div>
+      <button class="w-full rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800">Sign in</button>
+    </form>
+
+    <p class="mt-4 text-center text-sm text-slate-600">
+      No account? <a class="font-medium text-slate-900 underline" href="/register">Register</a>
+    </p>
+  </div>
+</main>
+
+<%- include('../partials/foot') %>
