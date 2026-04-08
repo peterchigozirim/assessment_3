@@ -11,7 +11,6 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const path = require("path");
-const methodOverride = require("method-override");
 const { attachUser } = require("@/Https/Middleware/SessionAuth");
 
 const port = process.env.PORT || 3040;
@@ -19,8 +18,6 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(methodOverride("_method"));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "Views"));
