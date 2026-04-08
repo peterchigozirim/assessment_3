@@ -1,54 +1,42 @@
-const Task = require("../../Models/Task");
+const Task = require("@/Models/Task");
 
 class TaskController {
 	index = async (req, res) => {
-		try {
-			const tasks = await Task.find({ user: req.user.id });
-			return res.status(200).json({ tasks });
-		} catch (error) {
-			return res.status(500).json({ message: "Internal server error." });
-		}
+		const tasks = await Task.find({ user: req.user.id }).sort({ _id: -1 });
+		return res.render("tasks/index", { tasks });
 	};
 
 	create = async (req, res) => {
-		try {
-			const { title } = req.body;
-			if (!title) {
-				return res.status(400).json({ message: "Title is required." });
-			}
-			const task = await Task.create({
-				title,
-				user: req.user.id,
-			});
-			return res
-				.status(201)
-				.json({ message: "Task created successfully.", task });
-		} catch (error) {
-			return res.status(500).json({ message: "Internal server error." });
+		const { title } = req.body;
+		if (!title) {
+			req.flash("error", "Title is required");
+			return res.redirect("/tasks");
 		}
+		await Task.create({ title, user: req.user.id });
+		req.flash("success", "Task added");
+		return res.redirect("/tasks");
 	};
 
 	update = async (req, res) => {
-		try {
-			const { id } = req.params;
-			const { status, user } = req.body;
-			if (!status) {
-				return res.status(400).json({ message: "Status is required." });
-			}
-			if (!req.user.id) {
-				return res.status(403).json({ message: "Unauthorized." });
-			}
-
-			const task = await Task.findOneAndUpdate(
-				{ _id: id, user: req.user.id },
-				{ status },
-				{ new: true },
-			);
-
-			res.json(task);
-		} catch (err) {
-			next(err);
+		const task = await Task.findOne({ _id: req.params.id, user: req.user.id });
+		if (!task) {
+			req.flash("error", "Task not found");
+			return res.redirect("/tasks");
 		}
+		const nextStatus = task.status === "completed" ? "pending" : "completed";
+		await Task.updateOne({ _id: task._id }, { status: nextStatus });
+		return res.redirect("/tasks");
+	};
+
+	destroy = async (req, res) => {
+		const task = await Task.findOne({ _id: req.params.id, user: req.user.id });
+		if (!task) {
+			req.flash("error", "Task not found");
+			return res.redirect("/tasks");
+		}
+		await Task.deleteOne({ _id: task._id });
+		req.flash("success", "Task deleted");
+		return res.redirect("/tasks");
 	};
 }
 

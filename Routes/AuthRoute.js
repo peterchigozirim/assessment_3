@@ -11,9 +11,9 @@ router.get("/register", (req, res) => res.render("auth/register"));
 
 router.post("/register", validateRegisterInput, registerController);
 
-router.post("/login", validateLoginInput, LoginController);
-
 router.get("/login", (req, res) => res.render("auth/login"));
+
+router.post("/login", validateLoginInput, LoginController);
 
 router.post("/logout", (req, res) => {
 	req.session.destroy(() => res.redirect("/login"));
